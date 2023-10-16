@@ -22,14 +22,17 @@ if (isProd) {
     },
   });
 
+  mainWindow.setMenuBarVisibility(false);
+
   if (isProd) {
     await mainWindow.loadURL("app://./auth/login");
   } else {
     const port = process.argv[2];
     await mainWindow.loadURL(`http://localhost:${port}/auth/login`);
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   }
 })();
+
 
 app.on("window-all-closed", () => {
   app.quit();
