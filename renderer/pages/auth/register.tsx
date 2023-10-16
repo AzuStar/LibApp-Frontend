@@ -52,7 +52,7 @@ export default function RegisterPage() {
             display: "flex",
             flexDirection: "column",
             gap: "1rem",
-            minWidth: "330px",
+            width: "330px",
             margin: "0 auto",
           }}
         >
