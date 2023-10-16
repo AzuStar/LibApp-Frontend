@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
+import { useAuth } from "../../lib/auth";
 
 const Root = styled("div")(({ theme }) => {
   return {
@@ -134,6 +135,7 @@ const StaffDetails = ({ id, title, author, branch, renter }: Book) => {
 
 export default function BookPage() {
   const router = useRouter();
+  const [auth] = useAuth();
   const [book, setBook] = React.useState<Book>();
   React.useEffect(() => {
     (async () => {
@@ -168,7 +170,11 @@ export default function BookPage() {
         </Typography>
         {book && (
           <>
-            <StaffDetails {...book} />
+            {auth.isStaff ? (
+              <StaffDetails {...book} />
+            ) : (
+              <UserDetails {...book} />
+            )}
           </>
         )}
       </Root>

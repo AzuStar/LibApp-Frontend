@@ -6,6 +6,8 @@ import TextField from "@mui/material/TextField";
 import Link from "../../components/Link";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/material";
+import { useRouter } from "next/router";
+import { useAuth } from "../../lib/auth";
 
 const Root = styled("div")(({ theme }) => {
   return {
@@ -15,6 +17,8 @@ const Root = styled("div")(({ theme }) => {
 });
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [auth, setAuth] = useAuth();
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -22,6 +26,12 @@ export default function LoginPage() {
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setLoading(false);
+    setAuth((prev) => ({
+      ...prev,
+      username: "test",
+      isStaff: false,
+    }));
+    router.push("/home");
   };
   return (
     <React.Fragment>

@@ -29,6 +29,7 @@ import UndoIcon from "@mui/icons-material/Undo";
 import { Book, Branch } from "../lib/types";
 import { BookListItem } from "../components/BookListItem";
 import { BranchListItem } from "../components/BranchListItem";
+import { useAuth } from "../lib/auth";
 
 const Root = styled("div")(({ theme }) => {
   return {
@@ -126,14 +127,13 @@ const UserView = () => {
 };
 
 export default function HomePage() {
+  const [auth] = useAuth();
   return (
     <React.Fragment>
       <Head>
         <title>LibApp - Home</title>
       </Head>
-      <Root>
-        <StaffView />
-      </Root>
+      <Root>{auth.isStaff ? <StaffView /> : <UserView />}</Root>
     </React.Fragment>
   );
 }
